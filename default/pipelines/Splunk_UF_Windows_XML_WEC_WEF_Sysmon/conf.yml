@@ -1,0 +1,114 @@
+output: default
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+functions:
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: "IMPORTANT:  Select the three grey bars ||| top left and enable the
+        Description option"
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: Parse _raw XML to a JSON & remove fields with values in brackets
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      add:
+        - name: _raw
+          value: C.Text.parseWinEvent(_raw,[])
+      remove: []
+    description: Parse _raw XML to a JSON & remove fields with values in brackets
+    final: false
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: Flatten fields to top level
+  - id: flatten
+    filter: "true"
+    disabled: false
+    conf:
+      fields:
+        - "!cribl_*"
+        - _raw
+      prefix: ""
+      depth: 5
+      delimiter: _
+    description: Flatten fields to top level
+    final: false
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: Remove nested names using Rename expressions
+  - id: rename
+    filter: "true"
+    disabled: false
+    conf:
+      wildcardDepth: 5
+      renameExpr: name.replace(/_raw_Event_EventData_Data_/,'').replace(/_raw_Event_System_/,'')
+    description: Remove nested names using Rename expressions
+    final: false
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: Drop unnecessary fields
+  - id: eval
+    filter: "true"
+    disabled: null
+    conf:
+      remove:
+        - TimeCreated_SystemTime
+    description: Drop unnecessary fields
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: Push fields into _raw
+  - id: serialize
+    filter: "true"
+    disabled: false
+    conf:
+      type: json
+      dstField: _raw
+      fields:
+        - "!_*"
+        - "!cribl_*"
+        - "!index"
+        - "!source"
+        - "!sourcetype"
+        - "!host"
+        - "!punct"
+        - "*"
+      cleanFields: false
+    description: Push fields into _raw
+  - id: comment
+    filter: "true"
+    disabled: null
+    conf:
+      comment: Create JSON Object from JSON string and drop nonessential fields
+  - id: eval
+    filter: "true"
+    disabled: false
+    conf:
+      keep:
+        - _*
+        - cribl_*
+        - index
+        - source
+        - sourcetype
+        - host
+        - punct
+        - hf
+      remove:
+        - "*"
+      add:
+        - name: _raw
+          value: JSON.parse(_raw)
+    description: Create JSON Object from JSON string and drop nonessential fields
