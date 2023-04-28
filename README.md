@@ -19,13 +19,12 @@ Add the following stanza to a **props.conf** file on the **Splunk search head**:
 
 This will override the Splunk Add-On for Microsoft Windows settings for the Windows sources.  The props.conf can also be deployed in a new app using the Splunk deployment server.  If using a custom app, remember: [Order of Precedence](https://docs.splunk.com/Documentation/Splunk/9.0.4/Admin/Wheretofindtheconfigurationfiles) matters where the app name needs to be alphabetically before Splunk_TA_windows.
 
-
-
 ```
 [source::XmlWinEventLog...]
 KV_MODE = auto
 priority = 1
 ```
+
 **Splunk Cloud**:  You might need to put in a ticket with the Splunk Cloud team to make the above changes.
 
 
