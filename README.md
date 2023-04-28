@@ -44,6 +44,8 @@ To use this Pack, follow these steps:
 ---
 ## **Release Notes**
 ---
+**1.0.6** - 2023-04-28: Removed old pipeline.
+
 **1.0.5** - 2023-04-28: Version tweak.
 
 **1.0.4** - 2023-04-28: Removed an old sample.
