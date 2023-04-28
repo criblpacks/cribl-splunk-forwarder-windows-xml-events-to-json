@@ -44,6 +44,8 @@ To use this Pack, follow these steps:
 ---
 ## **Release Notes**
 ---
+**1.0.5** - 2023-04-28: Version tweak.
+
 **1.0.4** - 2023-04-28: Removed an old sample.
 
 **1.0.3** - 2023-04-27: Added additional descriptions in some of the functions.
