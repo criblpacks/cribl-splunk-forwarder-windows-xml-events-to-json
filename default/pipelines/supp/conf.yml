@@ -1,0 +1,23 @@
+output: default
+streamtags: []
+groups: {}
+asyncFuncTimeout: 1000
+functions:
+  - id: suppress
+    filter: "true"
+    disabled: null
+    conf:
+      allow: 1
+      suppressPeriodSec: 60
+      dropEventsMode: false
+      maxCacheSize: 50000
+      cacheIdleTimeoutPeriods: 2
+      numEventsIdleTimeoutTrigger: 10000
+      keyExpr: "`${source}`"
+  - id: sampling
+    filter: "true"
+    disabled: true
+    conf:
+      rules:
+        - filter: "true"
+          rate: 1
