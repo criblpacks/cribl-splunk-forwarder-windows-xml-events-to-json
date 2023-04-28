@@ -1,7 +1,7 @@
 # **Cribl Splunk Forwarder Windows Sysmon/XML Events to JSON**
 ----
 
-This pack is designed to transform Splunk Windows Sysmon/XML events to JSON, reduce event sizes, be compliant with the Splunk Common Information Model (CIM) and maintain backwards compatibility with:
+This pack is designed to transform Splunk Windows Sysmon/XML events to JSON, reduce event sizes by 30-35%, and maintain backwards compatibility with:
 
 * Splunk Add-on for Microsoft Windows: https://splunkbase.splunk.com/app/742
 * Splunk Common Information Model (CIM): https://splunkbase.splunk.com/app/1621
@@ -44,7 +44,10 @@ To use this Pack, follow these steps:
 ---
 ## **Release Notes**
 ---
-**1.0.3** - 2023-04-21: Added additional descriptions in some of the functions.
+**1.0.4** - 2023-04-28: Removed an old sample.
+
+**1.0.3** - 2023-04-27: Added additional descriptions in some of the functions.
+
 **1.0.2** - 2023-04-21: Updated how Cribl handles the Data field.
 
 **1.0.1** - 2023-03-31: The Search-time operation sequence of Splunk will perform the transforms before the KV_MODE.  Since the Windows TA isn't designed for JSON, the recommended approach is to send across the top level index-time fields.
