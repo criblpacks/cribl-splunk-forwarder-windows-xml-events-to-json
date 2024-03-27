@@ -324,5 +324,41 @@ functions:
         - vendor_privilege*
         - Privileges*
         - Computer
+        - Hashes
+        - TargetFilename
+        - QueryResults
+        - ClientInfo
+        - Consumer
+        - Destination
+        - Filter
       add: []
     description: Keep fields needed by transforms at top level
+  - id: code
+    filter: "true"
+    disabled: false
+    conf:
+      maxNumOfIterations: 5000
+      code: >-
+        // Try to parse the value stored in __e._raw as JSON and assign it to
+        the 'raw' variable.
+
+        try {
+          var raw = JSON.parse(__e._raw);
+
+          // Iterate over each key-value pair in the __e object.
+          for (let [key, value] of Object.entries(__e)) {
+            // Check if the key does not start with an underscore (_) and the corresponding property exists in the 'raw' object.
+            if (!key.startsWith('_') && raw[key]) {
+              // Set the value of the property to undefined, effectively removing it from 'raw'.
+              raw[key] = undefined;
+            }
+          }
+
+          // Convert the 'raw' object back to a JSON string and update the __e['_raw'] with the new value.
+          __e['_raw'] = JSON.stringify(raw);
+        } catch (error) {
+          // If an error occurs during the process, catch it and save the error message as a string in __e['cribl_code_error'].
+          __e['cribl_code_error'] = String(error);
+        }
+    description: Remove any duplicate keys that exist in _raw when they are also in
+      top level fields.

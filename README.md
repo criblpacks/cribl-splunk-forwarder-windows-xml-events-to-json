@@ -1,7 +1,7 @@
 # **Cribl Splunk Forwarder Windows Sysmon/XML Events to JSON**
 ----
 
-This pack is designed to transform Splunk Windows Sysmon/XML events to JSON, reduce event sizes, be compliant with the Splunk Common Information Model (CIM) and maintain backwards compatibility with:
+This pack is designed to transform Splunk Windows Sysmon/XML events to JSON, reduce event sizes by 30-35%, and maintain backwards compatibility with:
 
 * Splunk Add-on for Microsoft Windows: https://splunkbase.splunk.com/app/742
 * Splunk Common Information Model (CIM): https://splunkbase.splunk.com/app/1621
@@ -19,13 +19,12 @@ Add the following stanza to a **props.conf** file on the **Splunk search head**:
 
 This will override the Splunk Add-On for Microsoft Windows settings for the Windows sources.  The props.conf can also be deployed in a new app using the Splunk deployment server.  If using a custom app, remember: [Order of Precedence](https://docs.splunk.com/Documentation/Splunk/9.0.4/Admin/Wheretofindtheconfigurationfiles) matters where the app name needs to be alphabetically before Splunk_TA_windows.
 
-
-
 ```
 [source::XmlWinEventLog...]
 KV_MODE = auto
 priority = 1
 ```
+
 **Splunk Cloud**:  You might need to put in a ticket with the Splunk Cloud team to make the above changes.
 
 
@@ -45,7 +44,18 @@ To use this Pack, follow these steps:
 ---
 ## **Release Notes**
 ---
-**1.0.3** - 2023-04-21: Added additional descriptions in some of the functions.
+**1.0.8** - 2023-06-27: Added fields to final Eval for Sysmon support.
+
+**1.0.7** - 2023-04-28: Removed field from _raw that are already at the top level.
+
+**1.0.6** - 2023-04-28: Removed old pipeline.
+
+**1.0.5** - 2023-04-28: Version tweak.
+
+**1.0.4** - 2023-04-28: Removed an old sample.
+
+**1.0.3** - 2023-04-27: Added additional descriptions in some of the functions.
+
 **1.0.2** - 2023-04-21: Updated how Cribl handles the Data field.
 
 **1.0.1** - 2023-03-31: The Search-time operation sequence of Splunk will perform the transforms before the KV_MODE.  Since the Windows TA isn't designed for JSON, the recommended approach is to send across the top level index-time fields.
